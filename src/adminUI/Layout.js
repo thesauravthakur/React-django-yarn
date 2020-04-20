@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Menu, Breadcrumb } from "antd";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, NavLink } from "react-router-dom";
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
@@ -24,9 +24,14 @@ class CustomLayout extends React.Component {
             defaultSelectedKeys={["2"]}
             style={{ lineHeight: "64px" }}
           >
+            <Menu.Item key="1" >
+              <NavLink to='/home'>Home</NavLink>
+            </Menu.Item>
             {this.props.isAuthenticated ? (
               <Menu.Item key="2" onClick={this.props.logout}>
-                Logout
+
+                <NavLink to='/admin'>Logout</NavLink>
+
               </Menu.Item>
             ) : (
                 <Menu.Item key="2">

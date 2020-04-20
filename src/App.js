@@ -5,7 +5,7 @@ import AdminAuthRoutes from "./AdminAuthRoutes";
 import "antd/dist/antd.css";
 import * as actions from "./store/actions/auth";
 import Hoc from "./hoc/hoc";
-import Routes from './userUI/Routes';
+import Routes from './Routes';
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
