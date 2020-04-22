@@ -23,7 +23,9 @@ class RegistrationForm extends React.Component {
           values.email,
           values.password,
           values.confirm,
-          is_student
+          is_student,
+          values.first_name,
+          values.last_name,
         );
         this.props.history.push("/admin");
       }
@@ -57,6 +59,34 @@ class RegistrationForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
+
+        <div className="row">
+          <div className="col-6">
+            <FormItem>
+              {getFieldDecorator("first_name", {
+                rules: [{ required: true, message: "Please input your First Name!" }]
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+                  placeholder="First Name"
+                />
+              )}
+            </FormItem>
+          </div>
+          <div className="col-6">
+            <FormItem>
+              {getFieldDecorator("last_name", {
+                rules: [{ required: true, message: "Please input your Last Name!" }]
+              })(
+                <Input
+                  prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+                  placeholder="First Name"
+                />
+              )}
+            </FormItem>
+          </div>
+        </div>
+
         <FormItem>
           {getFieldDecorator("userName", {
             rules: [{ required: true, message: "Please input your username!" }]
@@ -174,9 +204,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (username, email, password1, password2, is_student) =>
+    onAuth: (username, email, password1, password2, is_student, first_name, last_name) =>
       dispatch(
-        actions.authSignup(username, email, password1, password2, is_student)
+        actions.authSignup(username, email, password1, password2, is_student, first_name, last_name)
       )
   };
 };

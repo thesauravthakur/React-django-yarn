@@ -11,7 +11,7 @@ export const authSuccess = user => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     user
-  };
+  };  
 };
 
 export const authFail = error => {
@@ -69,7 +69,9 @@ export const authSignup = (
   email,
   password1,
   password2,
-  is_student
+  is_student,
+  first_name,
+  last_name,
 ) => {
   return dispatch => {
     dispatch(authStart());
@@ -80,11 +82,15 @@ export const authSignup = (
       password2,
       is_student,
       is_teacher: !is_student,
+      first_name,
+      last_name,
     };
     axios
       .post("http://127.0.0.1:8000/rest-auth/registration/", user)
       .then(res => {
         const user = {
+          first_name,
+          last_name,
           token: res.data.key,
           username,
           userId: res.data.user,

@@ -6,48 +6,29 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions/auth";
 import SideBar from './SideBar';
 import '../static/Layout.css';
-
-
-
+import UiHeader from "./Header";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 class CustomLayout extends React.Component {
 
+
   render() {
+    const user = JSON.parse(localStorage.getItem("user"))
     return (
       <Layout>
-        <Header className="header">
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            style={{ lineHeight: "64px" }}
-          >
-            <Menu.Item key="1" >
-              <NavLink to='/home'>Home</NavLink>
-            </Menu.Item>
-            {this.props.isAuthenticated ? (
-              <Menu.Item key="2" onClick={this.props.logout}>
-
-                <NavLink to='/admin'>Logout</NavLink>
-
-              </Menu.Item>
-            ) : (
-                <Menu.Item key="2">
-                  <Link to="/admin/login">Login</Link>
-                </Menu.Item>
-              )}
-          </Menu>
-        </Header>
+        <UiHeader {...this.props} />
         <Content style={{ padding: '0 50px' }}>
 
           {this.props.isAuthenticated ?
             (
               <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
+
+                <Breadcrumb.Item ><NavLink to='/profile' style={{ color: '#001529' }}>Profile</NavLink></Breadcrumb.Item>
+                {user.is_teacher &&
+                  <Breadcrumb.Item><NavLink to='/create-assignment' style={{ color: '#001529' }}> Create</NavLink></Breadcrumb.Item>
+                }
+
               </Breadcrumb>
             )
             :
@@ -55,13 +36,6 @@ class CustomLayout extends React.Component {
           }
 
           <Layout className="site-layout-background" style={{}}>
-
-            {
-              this.props.isAuthenticated ?
-                (<SideBar />)
-                :
-                (null)
-            }
 
             <Content style={{ padding: '15px 24px', minHeight: 440, backgroundColor: 'white' }}>
               {this.props.children}
@@ -74,6 +48,14 @@ class CustomLayout extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => dispatch(actions.logout())
@@ -82,7 +64,7 @@ const mapDispatchToProps = dispatch => {
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(CustomLayout)
 );

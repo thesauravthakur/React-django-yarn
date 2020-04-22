@@ -7,16 +7,19 @@ import { connect } from "react-redux";
 import Login from "./adminUI/Login";
 import Signup from "./adminUI/Signup";
 import CustomLayout from './adminUI/Layout';
-
-
-
+import Welcome from './adminUI/Welcome';
+import AdminPage from "./adminUI/AdminPage";
+import CreateAssignment from './adminUI/CreateAssignment';
 class AdminAuthRoutes extends React.Component {
   render() {
     return (
       <Hoc>
         <CustomLayout {...this.props}>
-          <Route exact path="/admin/login" component={Login} />
-          <Route exact path="/admin/signup" component={Signup} />
+          <Route exact path="/" component={Welcome} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/admin" component={AdminPage} />
+          <Route exact path="/create-assignment" component={CreateAssignment} />
         </CustomLayout>
 
       </Hoc>

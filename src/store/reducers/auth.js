@@ -4,7 +4,9 @@ import { updateObject } from "../utility";
 const initialState = {
   token: null,
   error: null,
-  loading: false
+  loading: false,
+  username: null,
+  userId: null,
 };
 
 const authStart = (state, action) => {
@@ -16,7 +18,9 @@ const authStart = (state, action) => {
 
 const authSuccess = (state, action) => {
   return updateObject(state, {
-    token: action.token,
+    token: action.user.token,
+    username: action.user.username,
+    userId: action.user.userId,
     error: null,
     loading: false
   });

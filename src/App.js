@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import AdminAuthRoutes from "./AdminAuthRoutes";
 import "antd/dist/antd.css";
 import * as actions from "./store/actions/auth";
 import Hoc from "./hoc/hoc";
-import Routes from './Routes';
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
@@ -17,11 +16,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Hoc>
-          <Route path='/admin' component={AdminAuthRoutes} />
-          <Route path='/home' component={Routes} />
-
-        </Hoc>
+        <Route  path='/' component={AdminAuthRoutes} />
       </Router>
     );
   }

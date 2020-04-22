@@ -72,7 +72,7 @@ class Login extends React.Component {
                   Login
               </Button>
               Or
-              <NavLink style={{ marginRight: "10px" }} to="/admin/signup">
+              <NavLink style={{ marginRight: "10px" }} to="/signup">
                   {" "}
                 signup
               </NavLink>
